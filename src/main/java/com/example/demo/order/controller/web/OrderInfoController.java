@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.order.core.application.object.command.OrderRequestDTO;
+import com.example.demo.order.core.application.object.command.BalanceRequestDTO;
 import com.example.demo.order.core.application.object.query.OrderResponseDTO;
 import com.example.demo.order.core.application.object.query.ResponseDTO;
 import com.example.demo.order.core.service.OrderInfoService;
@@ -39,7 +39,7 @@ public class OrderInfoController {
 	
 	@ApiOperation(value = "주문 정보 추가", httpMethod="POST", notes="주문 정보 추가 API")
 	@PostMapping(value="/order/info")
-	public ResponseEntity<Object> addOrder(@RequestBody OrderRequestDTO orderRequestDTO)
+	public ResponseEntity<Object> addOrder(@RequestBody BalanceRequestDTO orderRequestDTO)
 	{
 		orderInfoService.insertOrder(orderRequestDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -47,7 +47,7 @@ public class OrderInfoController {
 	
 	@ApiOperation(value = "주문 정보 수정", httpMethod="PUT", notes="주문 정보 수정 API.")
 	@PutMapping(value="/order/info")
-	public ResponseEntity<Object> updateOrder(@RequestBody OrderRequestDTO orderRequestDTO)
+	public ResponseEntity<Object> updateOrder(@RequestBody BalanceRequestDTO orderRequestDTO)
 	{
 		orderInfoService.updateOrder(orderRequestDTO);
 		return new ResponseEntity<>(HttpStatus.OK);

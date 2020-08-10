@@ -11,7 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.error.exception.BusinessException;
-import com.example.demo.order.core.application.object.command.OrderRequestDTO;
+import com.example.demo.order.core.application.object.command.BalanceRequestDTO;
 import com.example.demo.order.core.application.object.query.OrderResponseDTO;
 import com.example.demo.order.core.entity.Order;
 import com.example.demo.order.core.port_infra.persistent.OrderRepository;
@@ -44,13 +44,13 @@ public class OrderInfoService {
 			return null;
 	}
 	
-	public void insertOrder(OrderRequestDTO orderRequestDTO)
+	public void insertOrder(BalanceRequestDTO orderRequestDTO)
 	{
 		Order order = modelMapper.map(orderRequestDTO, Order.class);
 		orderRepository.save(order);
 	}
 	
-	public void updateOrder(OrderRequestDTO orderRequestDTO)	
+	public void updateOrder(BalanceRequestDTO orderRequestDTO)	
 	{
 		Optional<Order> optionalOrder = orderRepository.findById(orderRequestDTO.getId());
 		if(!optionalOrder.isPresent())

@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrderRequestDTO {
+public class BalanceRequestDTO {
 
 	@ApiModelProperty(example = "id01")
 	String id;			//Order Id

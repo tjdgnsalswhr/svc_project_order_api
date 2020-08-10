@@ -22,13 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrderResponseDTO {
-	
-	String id;			//Order Id
-	String ordertype; 	//1. 충전, 2. 결제
-	String storeid;	//주문에 연관된 가게 이름
-	String teamid;	//주문에 연관된 팀 이름
-	int money;
-	LocalDateTime orderdate;
-
+public class BalanceInfoResponseDTO {
+	String bid;
+	String cid;			//Order Id
+	String sid; 	//1. 충전, 2. 결제
+	int totalmoney;	//주문에 연관된 가게 이름
+	int remainmoney;	//주문에 연관된 팀 이름
 }
