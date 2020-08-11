@@ -1,6 +1,7 @@
 package com.example.demo.order.core.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.error.exception.BusinessException;
+
 import com.example.demo.order.core.application.object.command.BalanceInfoRequestDTO;
 import com.example.demo.order.core.application.object.query.BalanceInfoResponseDTO;
 import com.example.demo.order.core.entity.BalanceInfo;
@@ -56,62 +58,29 @@ public class BalanceInfoService {
 		return balanceRepository.findBySid(sid);
 	}
 	
-	public void chargeBalance(BalanceInfoRequestDTO balanceInfoRequestDTO)
-	{
-		BalanceInfoRequestDTO balanceInfoRequestDTO2 = null;
-		Optional<BalanceInfo> optionalBalanceInfo = balanceRepository.findByCidAndSid(balanceInfoRequestDTO.getCid(), balanceInfoRequestDTO.getSid());
-		if(!optionalBalanceInfo.isPresent())
-		{
-			balanceInfoRequestDTO2.setBid(balanceInfoRequestDTO.getBid());
-			balanceInfoRequestDTO2.setCid(balanceInfoRequestDTO.getCid());
-			balanceInfoRequestDTO2.setSid(balanceInfoRequestDTO.getSid());
-			balanceInfoRequestDTO2.setTotalmoney(balanceInfoRequestDTO.getRemainmoney());
-			balanceInfoRequestDTO2.setRemainmoney(balanceInfoRequestDTO.getRemainmoney());
-			BalanceInfo balanceInfo = modelMapper.map(balanceInfoRequestDTO2, BalanceInfo.class);
-			balanceRepository.save(balanceInfo);
-		}
-		else
-		{
-			BalanceInfo balanceInfo = optionalBalanceInfo.get();
-			balanceInfoRequestDTO2.setBid(balanceInfoRequestDTO.getBid());
-			balanceInfoRequestDTO2.setCid(balanceInfoRequestDTO.getCid());
-			balanceInfoRequestDTO2.setSid(balanceInfoRequestDTO.getSid());
-			
-			int total = balanceInfo.getTotalmoney() + balanceInfoRequestDTO.getRemainmoney();
-			int remain = balanceInfo.getRemainmoney() + balanceInfoRequestDTO.getRemainmoney();
-			
-			balanceInfoRequestDTO2.setTotalmoney(total);
-			balanceInfoRequestDTO2.setRemainmoney(remain);
-
-			balanceInfo.update(balanceInfoRequestDTO2);
-			balanceRepository.save(balanceInfo);
-		}
+	public void chargeBalance(String cid, String sid, int amount)
+	{	
+		
+		Optional<BalanceInfo> optionalBalanceInfo = balanceRepository.findByCidAndSid(cid, sid);
+		BalanceInfo balanceInfo = optionalBalanceInfo.get();
+		
+		BalanceInfoRequestDTO balanceInfoRequestDTO = modelMapper.map(optionalBalanceInfo.get(), BalanceInfoRequestDTO.class);
+		int total = balanceInfoRequestDTO.getTotalmoney() + amount;
+		int remain = balanceInfoRequestDTO.getRemainmoney() + amount;
+		balanceInfoRequestDTO.setRemainmoney(remain);
+		balanceInfoRequestDTO.setTotalmoney(total);
+		balanceInfo.update(balanceInfoRequestDTO);
 	}
 	
-	public void useBalance(BalanceInfoRequestDTO balanceInfoRequestDTO)
+	public void useBalance(String cid, String sid, int amount)
 	{
-		BalanceInfoRequestDTO balanceInfoRequestDTO2 = null;
-		Optional<BalanceInfo> optionalBalanceInfo = balanceRepository.findByCidAndSid(balanceInfoRequestDTO.getCid(), balanceInfoRequestDTO.getSid());
-		if(!optionalBalanceInfo.isPresent())
-		{
-			;
-		}
-		else
-		{
-			BalanceInfo balanceInfo = optionalBalanceInfo.get();
-			balanceInfoRequestDTO2.setBid(balanceInfoRequestDTO.getBid());
-			balanceInfoRequestDTO2.setCid(balanceInfoRequestDTO.getCid());
-			balanceInfoRequestDTO2.setSid(balanceInfoRequestDTO.getSid());
-			
-			//int total = balanceInfo.getTotalMoney() + balanceInfoRequestDTO.getRemainMoney();
-			int remain = balanceInfo.getRemainmoney() - balanceInfoRequestDTO.getRemainmoney();
-			
-			balanceInfoRequestDTO2.setTotalmoney(balanceInfoRequestDTO.getTotalmoney());
-			balanceInfoRequestDTO2.setRemainmoney(remain);
-
-			balanceInfo.update(balanceInfoRequestDTO2);
-			balanceRepository.save(balanceInfo);
-		}
+		Optional<BalanceInfo> optionalBalanceInfo = balanceRepository.findByCidAndSid(cid, sid);
+		BalanceInfo balanceInfo = optionalBalanceInfo.get();
+		
+		BalanceInfoRequestDTO balanceInfoRequestDTO = modelMapper.map(optionalBalanceInfo.get(), BalanceInfoRequestDTO.class);
+		int remain = balanceInfoRequestDTO.getRemainmoney() - amount;
+		balanceInfoRequestDTO.setRemainmoney(remain);
+		balanceInfo.update(balanceInfoRequestDTO);
 	}
 	
 	

@@ -57,18 +57,18 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "잔액 충전", httpMethod="PUT", notes="잔액 충전 API.")
-	@PutMapping(value="/balance/info/charge")
-	public ResponseEntity<Object> chargeBalance(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
+	@PutMapping(value="/balance/info/charge/{cid}/{sid}/{amount}")
+	public ResponseEntity<Object> chargeBalance(@PathVariable String cid, @PathVariable String sid, @PathVariable int amount)
 	{
-		balanceInfoService.chargeBalance(balanceInfoRequestDTO);
+		balanceInfoService.chargeBalance(cid, sid, amount);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "잔액 사용", httpMethod="PUT", notes="잔액 사용 API.")
-	@PutMapping(value="/balance/info/use")
-	public ResponseEntity<Object> useBalance(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
+	@PutMapping(value="/balance/info/use/{cid}/{sid}/{amount}")
+	public ResponseEntity<Object> useBalance(@PathVariable String cid, @PathVariable String sid, @PathVariable int amount)
 	{
-		balanceInfoService.useBalance(balanceInfoRequestDTO);
+		balanceInfoService.useBalance(cid, sid, amount);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

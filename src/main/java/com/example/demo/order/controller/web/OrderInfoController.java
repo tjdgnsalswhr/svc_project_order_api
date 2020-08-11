@@ -1,5 +1,7 @@
 package com.example.demo.order.controller.web;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,8 @@ public class OrderInfoController {
 	@PostMapping(value="/order/info")
 	public ResponseEntity<Object> addOrder(@RequestBody BalanceRequestDTO orderRequestDTO)
 	{
+		LocalDateTime date = LocalDateTime.now();
+		orderRequestDTO.setOrderdate(date);
 		orderInfoService.insertOrder(orderRequestDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -22,7 +22,7 @@ public class StoreOrderController {
 	
 	@ApiOperation(value="최근 일주일 내역 조회", httpMethod = "GET", notes="최근 일주일 내역 조회 API.")
 	@GetMapping(value="/order/store/list/{storeid}")
-	public ResponseEntity<Object> getRecentWeekOrderList(@PathVariable String storeid)
+	public ResponseEntity<Object> getRecentWeekOrderListByStore(@PathVariable String storeid)
 	{
 		LocalDateTime enddate = LocalDateTime.now();
 		LocalDateTime startdate = enddate.minusDays(7);
@@ -32,9 +32,11 @@ public class StoreOrderController {
 	
 	@ApiOperation(value="기간 검색 내역 조회", httpMethod = "GET", notes="기간 검색 내역 조회 API.")
 	@GetMapping(value="/order/store/list/{storeid}/{startdate}/{enddate}")
-	public ResponseEntity<Object> getSearchingOrderList(@PathVariable String storeid, @PathVariable LocalDateTime startdate, @PathVariable LocalDateTime enddate)
+	public ResponseEntity<Object> getSearchingOrderList(@PathVariable String storeid, @PathVariable String startdate, @PathVariable String enddate)
 	{
-		return new ResponseEntity<>(storeOrderService.getOrderList(storeid, startdate, enddate), HttpStatus.OK);
+		LocalDateTime from = LocalDateTime.parse(startdate);
+		LocalDateTime to = LocalDateTime.parse(enddate);
+		return new ResponseEntity<>(storeOrderService.getOrderList(storeid, from, to), HttpStatus.OK);
 	}
 
 }
