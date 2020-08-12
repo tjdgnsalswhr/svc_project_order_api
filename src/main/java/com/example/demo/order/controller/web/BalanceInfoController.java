@@ -73,7 +73,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value ="잔액 정보 추가", httpMethod="POST", notes="잔액 정보 추가 API")
-	@PostMapping(value="/balance/info/add", produces="application/json;charset=UTF-8")
+	@PostMapping(value="/balance/info/add")
 	public ResponseEntity<Object> addBalanceInfo(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
 	{
 		balanceInfoService.insertBalanceInfo(balanceInfoRequestDTO);
@@ -81,7 +81,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "잔액 정보 수정", httpMethod="PUT", notes="잔액 정보 수정 API.")
-	@PutMapping(value="/balance/info/modify", produces="application/json;charset=UTF-8")
+	@PutMapping(value="/balance/info/modify")
 	public ResponseEntity<Object> updateBalanceInfo(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
 	{
 		balanceInfoService.updateBalanceInfo(balanceInfoRequestDTO);
@@ -89,7 +89,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "주문 정보 삭제", httpMethod="DELETE", notes="주문 정보 삭제 API.")
-	@DeleteMapping(value="/balance/info/{cid}/{sid}", produces="application/json;charset=UTF-8")
+	@DeleteMapping(value="/balance/info/{cid}/{sid}")
 	public ResponseEntity<Object> deleteBalanceInfo(@PathVariable String cid, @PathVariable String sid)
 	{
 		balanceInfoService.deleteBalanecInfo(cid, sid);
