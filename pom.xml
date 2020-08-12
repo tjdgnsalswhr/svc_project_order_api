@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>svc_project_order_api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>svc_project_order_api</name>
+	<version>2.0.1-SNAPSHOT</version>
+	<name>svc-project-order-api</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

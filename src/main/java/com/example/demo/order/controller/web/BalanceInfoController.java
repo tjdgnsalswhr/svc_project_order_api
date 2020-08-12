@@ -29,7 +29,7 @@ public class BalanceInfoController {
 	BalanceInfoService balanceInfoService;
 	
 	@ApiOperation(value = "잔액 정보 전체 조회", httpMethod="GET", notes="잔액 정보 전체 조회 API.")
-	@GetMapping(value="/balance/info/all")
+	@GetMapping(value="/balance/info/all", produces="application/json;charset=UTF-8")
 	public ResponseEntity<List<BalanceInfo>> getAllBalanceInfo()
 	{
 		return new ResponseEntity<>(balanceInfoService.getAllBalanceList(), HttpStatus.OK);
@@ -65,7 +65,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "잔액 사용", httpMethod="PUT", notes="잔액 사용 API.")
-	@PutMapping(value="/balance/info/use/{cid}/{sid}/{amount}")
+	@PutMapping(value="/balance/info/use/{cid}/{sid}/{amount}", produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> useBalance(@PathVariable String cid, @PathVariable String sid, @PathVariable int amount)
 	{
 		balanceInfoService.useBalance(cid, sid, amount);
@@ -73,7 +73,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value ="잔액 정보 추가", httpMethod="POST", notes="잔액 정보 추가 API")
-	@PostMapping(value="/balance/info/add")
+	@PostMapping(value="/balance/info/add", produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> addBalanceInfo(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
 	{
 		balanceInfoService.insertBalanceInfo(balanceInfoRequestDTO);
@@ -81,7 +81,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "잔액 정보 수정", httpMethod="PUT", notes="잔액 정보 수정 API.")
-	@PutMapping(value="/balance/info/modify")
+	@PutMapping(value="/balance/info/modify", produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> updateBalanceInfo(@RequestBody BalanceInfoRequestDTO balanceInfoRequestDTO)
 	{
 		balanceInfoService.updateBalanceInfo(balanceInfoRequestDTO);
@@ -89,7 +89,7 @@ public class BalanceInfoController {
 	}
 	
 	@ApiOperation(value = "주문 정보 삭제", httpMethod="DELETE", notes="주문 정보 삭제 API.")
-	@DeleteMapping(value="/balance/info/{cid}/{sid}")
+	@DeleteMapping(value="/balance/info/{cid}/{sid}", produces="application/json;charset=UTF-8")
 	public ResponseEntity<Object> deleteBalanceInfo(@PathVariable String cid, @PathVariable String sid)
 	{
 		balanceInfoService.deleteBalanecInfo(cid, sid);

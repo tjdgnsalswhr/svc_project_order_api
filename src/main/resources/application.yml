@@ -6,6 +6,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        
+    http:
+      encoding:
+         charset : UTF-8
+         enabled : true
+         force : true
   h2:
     console:
       enabled: true
